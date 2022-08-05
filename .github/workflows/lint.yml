@@ -7,6 +7,9 @@ on:
     paths:
       - "docs/**"
   pull_request:
+    branches:
+      - master
+      - 'proposal/**'
     paths:
       - "docs/**"
 
@@ -15,16 +18,17 @@ jobs:
   lint-format:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Lint markdown format
-        uses: github/super-linter@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: master
-          FILTER_REGEX_INCLUDE: .*docs/.*md$
-          VALIDATE_ALL_CODEBASE: false
-          VALIDATE_MARKDOWN: true
+      - name: Lint markdown format
+          uses: github/super-linter@v4
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DEFAULT_BRANCH: master
+            FILTER_REGEX_INCLUDE: .*docs/.*md$
+            VALIDATE_ALL_CODEBASE: false
+            VALIDATE_MARKDOWN: true
+            # MARKDOWN_CONFIG_FILE: .markdown-lint.yml
